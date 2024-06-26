@@ -6,6 +6,7 @@ import _ from "lodash";
 import moment from "moment";
 import axiosInstance from "../../utils/axiosInstance";
 import Loader from "../Loader";
+import { url } from "../../utils/url";
 
 const PatientDetails = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const PatientDetails = () => {
     const getData = async () => {
       const {
         data: { patient },
-      } = await axiosInstance.get(`/patient/${id}`);
+      } = await axiosInstance.get(`${url}/patient/${id}`);
       const patientDet = patient[0];
       patientDet["birthdate"] = moment(patientDet["birthdate"]).format(
         "YYYY-MM-DD"
@@ -30,7 +31,7 @@ const PatientDetails = () => {
       //   console.log(_.omit(patient[0], ["_id", "__v"]));
       const {
         data: { bill },
-      } = await axiosInstance.get(`/patient/bill/${id}`);
+      } = await axiosInstance.get(`${url}/patient/bill/${id}`);
       setBills(bill);
     };
 

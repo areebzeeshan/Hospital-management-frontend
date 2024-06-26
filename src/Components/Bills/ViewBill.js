@@ -4,6 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { Col, Row, Table } from "reactstrap";
 import moment from "moment";
 import _ from "lodash";
+import { url } from "../../utils/url";
 function ViewBill() {
   const { billId } = useParams();
   const [bill, setBill] = useState();
@@ -39,7 +40,7 @@ function ViewBill() {
     const getData = async () => {
       const {
         data: { bill },
-      } = await axiosInstance.get(`/bill/${billId}`);
+      } = await axiosInstance.get(`${url}/bill/${billId}`);
       if (bill !== null || bill !== undefined) {
         const formatedBill = formatBill(bill);
         setBill(_.omit(formatedBill, ["_id"]));

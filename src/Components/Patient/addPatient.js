@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import moment from "moment";
+import { url } from "../../utils/url";
 function AddPatientForm() {
   const [patientDetails, setPatientDetails] = useState({
     name: "",
@@ -16,8 +17,10 @@ function AddPatientForm() {
   });
   const history = useHistory();
   const handleSubmit = async () => {
-    const patient = await axiosInstance.post("/patient", patientDetails);
-    history.push("/patients");
+    const patient = await axiosInstance.post(`${url}/patient`, patientDetails);
+    if (patient.status === 201) {
+      history.push("/patients");
+    }
   };
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { Button, Col, Table } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { url } from "../../utils/url";
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const history = useHistory();
@@ -9,7 +10,7 @@ const Rooms = () => {
     const getData = async () => {
       const {
         data: { rooms },
-      } = await axiosInstance.get("/room");
+      } = await axiosInstance.get(`${url}/room`);
       setRooms([...rooms]);
     };
     getData();

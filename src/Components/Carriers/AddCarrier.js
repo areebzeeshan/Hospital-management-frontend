@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import { url } from "../../utils/url";
 
 const AddCarrier = () => {
   const [carrier, setCarrier] = useState({
@@ -11,7 +12,7 @@ const AddCarrier = () => {
   const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axiosInstance.post("/carrier", carrier);
+    const { data } = await axiosInstance.post(`${url}/carrier`, carrier);
     history.push(`/carriers`);
   };
   return (

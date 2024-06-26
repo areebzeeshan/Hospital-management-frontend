@@ -2,6 +2,7 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
 import { useEffect, useState } from "react";
+import { url } from "../../utils/url";
 
 const EditDoctor = (props) => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const EditDoctor = (props) => {
   const location = useLocation();
   const history = useHistory();
   const handleSubmit = async () => {
-    const data = await axiosInstance.patch(`/doctor/${id}`, doctor);
+    const data = await axiosInstance.patch(`${url}/doctor/${id}`, doctor);
     if (data.status === 200) {
       history.push("/doctors");
     }
@@ -20,7 +21,7 @@ const EditDoctor = (props) => {
     const getData = async () => {
       const {
         data: { doctor },
-      } = await axiosInstance.get(`/doctor/${id}`);
+      } = await axiosInstance.get(`${url}/doctor/${id}`);
       setDoctor(doctor);
     };
     getData();

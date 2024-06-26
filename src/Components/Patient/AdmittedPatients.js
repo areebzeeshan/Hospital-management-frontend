@@ -4,6 +4,7 @@ import { Button, Col, FormGroup, Input, Label, Row, Table } from "reactstrap";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { url } from "../../utils/url";
 
 const AdmittedPatients = () => {
   const [patients, setPatients] = useState([]);
@@ -23,7 +24,7 @@ const AdmittedPatients = () => {
     const getData = async () => {
       const {
         data: { patients },
-      } = await axiosInstance.get("/patient/admitted");
+      } = await axiosInstance.get(`${url}/patient/admitted`);
       setPatients(patients);
     };
     getData();
@@ -32,15 +33,15 @@ const AdmittedPatients = () => {
   const handleDischarge = async (e) => {
     const {
       data: { treatment },
-    } = await axiosInstance.post("/treatement", treatments);
+    } = await axiosInstance.post(`${url}/treatement`, treatments);
     // console.log(treatment);
     const {
       data: { admission },
-    } = await axiosInstance.patch(`/patient/admit/${admissionId}`, {
+    } = await axiosInstance.patch(`${url}/patient/admit/${admissionId}`, {
       treatment: treatment,
     });
 
-    const discharge = await axiosInstance.post("/bill", {
+    const discharge = await axiosInstance.post(`${url}/bill`, {
       patient_id: patientId,
       admission_id: admissionId,
       discharge_date: new Date(),

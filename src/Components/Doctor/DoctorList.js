@@ -4,6 +4,7 @@ import { Button, Col, Input, Row, Table } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
 import Loader from "../Loader";
 import { useHistory, useLocation } from "react-router-dom";
+import { url } from "../../utils/url";
 function DoctorList() {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
@@ -14,7 +15,7 @@ function DoctorList() {
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      const res = await axiosInstance.get("/doctor");
+      const res = await axiosInstance.get(`${url}/doctor`);
       if (res.status === 200) {
         setDoctors(res.data.doctors);
         setLoading(false);
@@ -23,7 +24,7 @@ function DoctorList() {
     getData();
   }, []);
   const handleDelete = async (id) => {
-    await axiosInstance.delete(`/doctor/${id}`);
+    await axiosInstance.delete(`${url}/doctor/${id}`);
     location.reload();
   };
   if (loading) {

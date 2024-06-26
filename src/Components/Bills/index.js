@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { Button, Col, Row, Table } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
 import moment from "moment";
+import { url } from "../../utils/url";
 function Bills() {
   const [bills, setBills] = useState();
   const history = useHistory();
@@ -10,7 +11,7 @@ function Bills() {
     const getData = async () => {
       const {
         data: { bills },
-      } = await axiosInstance.get("/bill");
+      } = await axiosInstance.get(`${url}/bill`);
 
       setBills([...bills]);
     };

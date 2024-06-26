@@ -2,6 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { useHistory } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import { url } from "../../utils/url";
 
 const AddRoom = () => {
   const [roomData, setRoomData] = useState();
@@ -10,7 +11,7 @@ const AddRoom = () => {
     // e.preventDefault();
     const {
       data: { room },
-    } = await axiosInstance.post("/room", roomData);
+    } = await axiosInstance.post(`${url}/room`, roomData);
     history.push(`/rooms/${room._id}`);
   };
   return (

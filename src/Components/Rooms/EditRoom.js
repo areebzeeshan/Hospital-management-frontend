@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import { url } from "../../utils/url";
 
 const EditRoom = () => {
   const [roomData, setRoomData] = useState();
@@ -11,7 +12,7 @@ const EditRoom = () => {
     const getData = async () => {
       const {
         data: { room },
-      } = await axiosInstance.get(`/room/details/${id}`);
+      } = await axiosInstance.get(`${url}/room/details/${id}`);
       setRoomData(room);
     };
     getData();
@@ -21,7 +22,7 @@ const EditRoom = () => {
     // e.preventDefault();
     const {
       data: { room },
-    } = await axiosInstance.patch(`/room/${id}`, roomData);
+    } = await axiosInstance.patch(`${url}/room/${id}`, roomData);
     history.push("/rooms");
   };
   return (

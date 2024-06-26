@@ -2,6 +2,7 @@ import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { useEffect, useState } from "react";
 import { Table } from "reactstrap";
+import { url } from "../../utils/url";
 
 const ViewRoom = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const ViewRoom = () => {
     const getData = async () => {
       const {
         data: { room },
-      } = await axiosInstance.get(`/room/${id}`);
+      } = await axiosInstance.get(`${url}/room/${id}`);
 
       setPatients(room);
     };

@@ -5,6 +5,7 @@ import { Button, Col, Row, Table } from "reactstrap";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import Loader from "../Loader";
+import { url } from "../../utils/url";
 const PatientBills = () => {
   const { _id: patientId } = jwt(localStorage.getItem("token"));
   const [bills, setBills] = useState([]);
@@ -18,7 +19,7 @@ const PatientBills = () => {
       setLoading(true);
       const {
         data: { bill },
-      } = await axiosInstance.get(`/patient/bill/${patientId}`);
+      } = await axiosInstance.get(`${url}/patient/bill/${patientId}`);
       setBills(bill);
       setLoading(false);
     };

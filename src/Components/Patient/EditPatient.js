@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import moment from "moment";
+import { url } from "../../utils/url";
 function EditPatientForm() {
   const [patientDetails, setPatientDetails] = useState({
     name: "",
@@ -20,13 +21,13 @@ function EditPatientForm() {
     const getData = async () => {
       const {
         data: { patient },
-      } = await axiosInstance.get(`/patient/${id}`);
+      } = await axiosInstance.get(`${url}/patient/${id}`);
       setPatientDetails(patient?.[0]);
     };
     getData();
   }, []);
   const handleSubmit = async () => {
-    const patient = await axiosInstance.patch(`/patient/${id}`, patientDetails);
+    const patient = await axiosInstance.patch(`${url}/patient/${id}`, patientDetails);
     history.push("/patients");
   };
   return (

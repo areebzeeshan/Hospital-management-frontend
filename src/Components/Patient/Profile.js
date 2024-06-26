@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
 import Loader from "../Loader";
+import { url } from "../../utils/url";
 
 function Profile() {
   const [patientDetails, setPatientDetails] = useState({});
@@ -19,7 +20,7 @@ function Profile() {
     }
     const getData = async () => {
       setLoading(true);
-      const res = await axiosInstance.get(`/patient/${_id}`);
+      const res = await axiosInstance.get(`${url}/patient/${_id}`);
       if (res.status === 200) {
         setPatientDetails(res.data.patient?.[0]);
         setLoading(false);
@@ -28,14 +29,14 @@ function Profile() {
     getData();
   }, [_id]);
   const handleSubmit = async () => {
-    const res = await axiosInstance.patch(`/patient/${_id}`, {
+    const res = await axiosInstance.patch(`${url}/patient/${_id}`, {
       ...patientDetails,
     });
     alert("Details Updated Successfully");
   };
   const handlePasswordChange = async () => {
     try {
-      const res = await axiosInstance.patch(`/update/${_id}`, {
+      const res = await axiosInstance.patch(`${url}/update/${_id}`, {
         oldPassword,
         newPassword,
         role: "patient",

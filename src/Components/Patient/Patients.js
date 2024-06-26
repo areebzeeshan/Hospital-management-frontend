@@ -4,6 +4,7 @@ import { Button, Col, Input, Row, Table } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
 import Loader from "../Loader";
 import jwtDecode from "jwt-decode";
+import { url } from "../../utils/url";
 function Patients() {
   const [patients, setPatients] = useState([]);
   const [search, setSearch] = useState("");
@@ -17,12 +18,12 @@ function Patients() {
       if (role === "doctor") {
         const {
           data: { patients },
-        } = await axiosInstance.get(`/doctor/patients/${_id}`);
+        } = await axiosInstance.get(`${url}/doctor/patients/${_id}`);
         setPatients([...patients]);
         setLoading(false);
       } else {
         setLoading(true);
-        const res = await axiosInstance.get("/patient");
+        const res = await axiosInstance.get(`${url}/patient`);
         if (res.status === 200) {
           setPatients(res.data.patients);
           setLoading(false);
@@ -33,7 +34,7 @@ function Patients() {
   }, [role, _id]);
 
   const handleDelete = async (id) => {
-    await axiosInstance.delete(`/patient/${id}`);
+    await axiosInstance.delete(`${url}/patient/${id}`);
     location.reload();
   };
   if (loading || role === undefined) {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
+import { url } from "../../utils/url";
 
 const AddBill = () => {
   const [bill, setBillDetails] = useState([]);
@@ -10,13 +11,13 @@ const AddBill = () => {
     const getPatients = async () => {
       const {
         data: { patients },
-      } = await axiosInstance.get("/patient");
+      } = await axiosInstance.get(`${url}/patient`);
       setPatients(patients);
     };
     const getDoctors = async () => {
       const {
         data: { doctors },
-      } = await axiosInstance.get("/doctor");
+      } = await axiosInstance.get(`${url}/doctor`);
       setDoctors(doctors);
     };
 

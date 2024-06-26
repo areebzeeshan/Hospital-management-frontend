@@ -7,6 +7,7 @@ import { Nav, Navbar, NavItem } from "reactstrap";
 import styled from "styled-components";
 import axiosInstance from "../../utils/axiosInstance";
 import LoginCard from "./LoginCard";
+import { url } from "../../utils/url";
 const LoginPaper = styled(Paper)`
   width: 100%;
   max-width: 500px;
@@ -44,7 +45,7 @@ function LogIn() {
       return;
     }
     try {
-      const res = await axiosInstance.post("/login", {
+      const res = await axiosInstance.post(`${url}/login`, {
         role: location.state,
         email,
         password,

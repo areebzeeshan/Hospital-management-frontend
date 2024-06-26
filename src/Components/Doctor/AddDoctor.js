@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
+import { url } from "../../utils/url";
 
 const AddDoctor = () => {
   const [docDetails, setDocDetails] = useState({});
   const location = useLocation();
   const history = useHistory();
   const handleSubmit = async () => {
-    const data = await axiosInstance.post("/doctor", docDetails);
+    const data = await axiosInstance.post(`${url}/doctor`, docDetails);
     if (data.status === 201) {
       history.push("/doctors");
     }

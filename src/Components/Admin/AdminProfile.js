@@ -4,6 +4,7 @@ import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import axiosInstance from "../../utils/axiosInstance";
 import Loader from "../Loader";
 import { useHistory } from "react-router-dom";
+import { url } from "../../utils/url";
 function AdminProfile() {
   const [adminDetails, setAdminDetails] = useState();
   const { _id } = jwt(localStorage.getItem("token"));
@@ -18,7 +19,7 @@ function AdminProfile() {
     }
     const getProfile = async () => {
       setLoading(true);
-      const res = await axiosInstance.get(`/admin/${_id}`);
+      const res = await axiosInstance.get(`${url}/admin/${_id}`);
       if (res.status === 200) {
         setAdminDetails(res.data.admin);
         setLoading(false);
@@ -30,12 +31,12 @@ function AdminProfile() {
     getProfile();
   }, []);
   const handleSubmit = async () => {
-    await axiosInstance.patch(`/admin/${_id}`, { ...adminDetails });
+    await axiosInstance.patch(`${url}/admin/${_id}`, { ...adminDetails });
     window.location.reload();
   };
   const handlePasswordChange = async () => {
     try {
-      const res = await axiosInstance.patch(`/update/${_id}`, {
+      const res = await axiosInstance.patch(`${url}/update/${_id}`, {
         oldPassword,
         newPassword,
         role: "admin",

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { Table } from "reactstrap";
+import { url } from "../../utils/url";
 
 const Carrier = () => {
   const [carrier, setCarrier] = useState([]);
@@ -10,7 +11,7 @@ const Carrier = () => {
     const getData = async () => {
       const {
         data: { carriers },
-      } = await axiosInstance.get("/carrier");
+      } = await axiosInstance.get(`${url}/carrier`);
       setCarrier([...carriers]);
     };
     getData();

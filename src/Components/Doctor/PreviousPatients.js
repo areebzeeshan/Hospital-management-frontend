@@ -3,6 +3,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import jwtDecode from "jwt-decode";
 import { Table } from "reactstrap";
 import moment from "moment";
+import { url } from "../../utils/url";
 
 const PreviousPatients = () => {
   const [patients, setPatients] = useState(null);
@@ -11,7 +12,7 @@ const PreviousPatients = () => {
       const { _id } = jwtDecode(localStorage.getItem("token"));
       const {
         data: { patients },
-      } = await axiosInstance.get(`/doctor/previousPatients/${_id}`);
+      } = await axiosInstance.get(`${url}/doctor/previousPatients/${_id}`);
       setPatients(patients);
     };
     getData();

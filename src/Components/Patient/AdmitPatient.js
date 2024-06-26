@@ -16,6 +16,7 @@ import Loader from "../Loader";
 import moment from "moment";
 import { DatePicker } from "reactstrap-date-picker";
 import jwtDecode from "jwt-decode";
+import { url } from "../../utils/url";
 const AdmitPatient = () => {
   const { id } = useParams();
 
@@ -36,7 +37,7 @@ const AdmitPatient = () => {
 
   const handleSubmit = async () => {
     console.log({ ...admitData, patient_id: id });
-    const admit = await axiosInstance.post("/patient/admit", {
+    const admit = await axiosInstance.post(`${url}/patient/admit`, {
       ...admitData,
       patient_id: id,
     });
@@ -45,15 +46,15 @@ const AdmitPatient = () => {
   const handleDischarge = async (e) => {
     const {
       data: { treatment },
-    } = await axiosInstance.post("/treatement", treatments);
+    } = await axiosInstance.post(`${url}/treatement`, treatments);
     // console.log(treatment);
     const {
       data: { admission },
-    } = await axiosInstance.patch(`/patient/admit/${admissionId}`, {
+    } = await axiosInstance.patch(`${url}/patient/admit/${admissionId}`, {
       treatment: treatment,
     });
 
-    const discharge = await axiosInstance.post("/bill", {
+    const discharge = await axiosInstance.post(`${url}/bill`, {
       patient_id: id,
       admission_id: admissionId,
       discharge_date: new Date(),
@@ -82,12 +83,12 @@ const AdmitPatient = () => {
       setLoading(true);
       const {
         data: { admission },
-      } = await axiosInstance.get(`/patient/admit/${id}`);
+      } = await axiosInstance.get(`${url}/patient/admit/${id}`);
       setPrevAdmissions(admission);
       //  else {
       const {
         data: { doctors },
-      } = await axiosInstance.get("/doctor");
+      } = await axiosInstance.get(`${url}/doctor`);
       // console.log(doctors);
       admission?.some((admit) => {
         if (admit.bill_id === undefined) {
@@ -103,13 +104,13 @@ const AdmitPatient = () => {
 
       const {
         data: { rooms },
-      } = await axiosInstance.get("/room");
+      } = await axiosInstance.get(`${url}/room`);
 
       const filteredRooms = await Promise.all(
         rooms.map(async (room) => {
           const {
             data: { room: roomData },
-          } = await axiosInstance.get(`/room/${room._id}`);
+          } = await axiosInstance.get(`${url}/room/${room._id}`);
           // console.log(roomData.length);
           // console.log(room.no_of_beds);
           if (roomData.length < room.no_of_beds) {
@@ -125,7 +126,7 @@ const AdmitPatient = () => {
       setRooms(filteredRooms);
       const {
         data: { carriers },
-      } = await axiosInstance.get("/carrier");
+      } = await axiosInstance.get(`${url}/carrier`);
       setCarriers([...carriers]);
       setLoading(false);
       // }
